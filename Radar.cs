@@ -1,49 +1,50 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Diagnostics;
 
-[RequireComponent(typeof(Rigidbody2D))]
 public class Radar : MonoBehaviour
 {
-    private Transform sweepTransform;
-    private float rotationSpeed;
-    private float radarDistance;
-    private Rigidbody2D radar;
-    public LayerMask detectableObjects; // A layer to determine which objects can be detected by the radar.
+    [SerializeField] private GameObject pulsePrefab;
+    [SerializeField] private float pulseSpeed = 0.5f;
+    [SerializeField] private float maxPulseScale = 5f;
+    [SerializeField] private float pulseInterval = 1f;
 
-    void Start()
+    private void Start()
     {
-        radar = GetComponent<Rigidbody2D>();
+        StartCoroutine(SpawnPulseRoutine());
     }
 
-    void Update()
+    private IEnumerator SpawnPulseRoutine()
     {
-        RotateSweep();
-        DetectObjects();
-    }
-
-    private void Awake()
-    {
-        sweepTransform = transform.Find("Sweep");
-        rotationSpeed = 180f;
-        radarDistance = 150f;
-    }
-
-    private void RotateSweep()
-    {
-        sweepTransform.Rotate(Vector3.forward, rotationSpeed * Time.deltaTime); // Rotates the sweep around its forward axis.
-    }
-
-    private void DetectObjects()
-    {
-        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(radar.position, radarDistance, detectableObjects);
-
-        foreach (Collider2D obj in detectedObjects)
+        while (true)
         {
-            // Here, you can mark these objects on your radar UI or perform any action you want.
-            Debug.Log("Detected object: " + obj.name);
+            SpawnPulse();
+            yield return new WaitForSeconds(pulseInterval);
         }
     }
-}
 
+    private void SpawnPulse()
+    {
+        GameObject pulse = Instantiate(pulsePrefab, transform.position, Quaternion.identity, transform);
+        StartCoroutine(GrowAndFadePulse(pulse));
+    }
+
+    private IEnumerator GrowAndFadePulse(GameObject pulse)
+    {
+        SpriteRenderer pulseRenderer = pulse.GetComponent<SpriteRenderer>();
+        float initialAlpha = pulseRenderer.color.a;
+
+        while (pulse.transform.localScale.x < maxPulseScale)
+        {
+            pulse.transform.localScale += Vector3.one * pulseSpeed * Time.deltaTime;
+
+            Color pulseColor = pulseRenderer.color;
+            pulseColor.a = Mathf.Lerp(initialAlpha, 0f, pulse.transform.localScale.x / maxPulseScale);
+            pulseRenderer.color = pulseColor;
+
+            yield return null;
+        }
+
+        Destroy(pulse);
+    }
+}
