@@ -6,37 +6,77 @@ public class FOV : MonoBehaviour
 {
 
     // some instances for calculation
-    [Range(0, 78)]  public float radius = 20; // radius of FOV, ranging from 0 to 78 (current camera width)
-    [Range(1, 179)] public float angle = 45; // angle of FOV, ranging from 1 to 179, default is 45
+    [Range(0, 78)]  public float radius = 30; // radius of FOV, ranging from 0 to 78 (current camera width)
+    [Range(1, 179)] public float angle = 45; // angle of FOV, ranging from 1 to 179 degrees
     Vector2 circleOrigin; // origin position of FOV
+
     private float powerReceivedRatio1; // in the direction of ememy radar
     private float powerReceivedRatio2; // in the direction of current trajectory
 
+    public bool canSeeTarget { get; private set; } // get is public while set is private 
+
+    public LayerMask targetLayer;
+    public LayerMask obstructionLayer;
+
+    public GameObject targetRef;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        OnDrawGizmos();
-        Instances();
+        // find the target by tag, or you can just use FindGameObject()
+        targetRef = GameObject.FindGameObjectWithTag("Target"); // adjust as needed
+        StartCoroutine(FOVCheck());
     }
-
 
 
     // Update is called once per frame
     private void Update()
     {
-        
+
     }
 
 
     /*
-     * Gets the calculations done.
+     * FOV updates every 0.2 seconds.
      */
-    private void Instances()
+    private IEnumerator FOVCheck()
     {
-        powerReceivedRatio1 = 1 / Mathf.Pow(radius, 2);
-        powerReceivedRatio2 = powerReceivedRatio1 * 1 / Mathf.Pow(2 * radius * Mathf.Sin(angle / 2), 2);
+        WaitForSeconds wait = new WaitForSeconds(0.2f); // adjust as needed
+
+        while (true)
+        {
+            yield return wait;
+            FieldOfView();
+        }
+    }
+
+    /*
+     * Checks whether the target is in the FOV range.
+     */
+    private void FieldOfView()
+    {
+        Collider2D[] rangeCheck = Physics2D.OverlapCircleAll(transform.position, radius, targetLayer);
+
+        if (rangeCheck.Length > 0)
+        {
+            Transform target = rangeCheck[0].transform;
+            Vector2 directionToTarget = (target.position - transform.position).normalized;
+
+            if (Vector2.Angle(transform.right, directionToTarget) < angle / 2)
+            {
+                float distanceToTarget = Vector2.Distance(transform.position, target.position);
+
+                if (!Physics2D.Raycast(transform.position, directionToTarget, distanceToTarget, obstructionLayer))
+                    canSeeTarget = true;
+                else
+                    canSeeTarget = false;
+            }
+            else
+                canSeeTarget = false;
+        }
+        else if (canSeeTarget)
+            canSeeTarget = false;
     }
 
 
