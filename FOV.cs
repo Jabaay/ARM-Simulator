@@ -16,7 +16,6 @@ public class FOV : MonoBehaviour
     public bool canSeeTarget { get; private set; } // get is public while set is private 
 
     public LayerMask targetLayer;
-    public LayerMask obstructionLayer;
 
     public GameObject targetRef;
 
@@ -67,10 +66,10 @@ public class FOV : MonoBehaviour
             {
                 float distanceToTarget = Vector2.Distance(transform.position, target.position);
 
-                if (!Physics2D.Raycast(transform.position, directionToTarget, distanceToTarget, obstructionLayer))
+                if (!Physics2D.Raycast(transform.position, directionToTarget, distanceToTarget))
                     canSeeTarget = true;
                 else
-                    canSeeTarget = false;
+                    canSeeTarget = false; 
             }
             else
                 canSeeTarget = false;
