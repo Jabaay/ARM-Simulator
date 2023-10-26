@@ -7,6 +7,7 @@ public class Missile : MonoBehaviour
 {
 
     private Rigidbody2D body;
+    public Jammer jammer;
 
     [SerializeField] private float speed = 14.5f; // traveling speed of the missile horizontal to its trajectory
     [SerializeField] private float boost = 5.0f; // boosting speed of the missile perpendicular to its trajectory
@@ -15,11 +16,21 @@ public class Missile : MonoBehaviour
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
+
+        transform.position = new Vector3(0, 0, 0);
     }
 
     void FixedUpdate()
     {
-        Vector2 targetPos = GameObject.Find("squareTarget").transform.position;
+        Vector2 targetPos;
+
+        if (jammer != null && jammer.getActive())
+        {
+            //Debug.Log("MISSILE: " + jammer.getDecoyCoord());
+            targetPos = jammer.getDecoyCoord();
+        }
+        else
+            targetPos = GameObject.Find("squareTarget").transform.position;
 
         Vector2 direction = targetPos - body.position;
         direction.Normalize();
@@ -34,7 +45,8 @@ public class Missile : MonoBehaviour
         // If the missile misses
         else
         {
-            body.velocity = transform.right * 0;
+            body.velocity = transform.right * speed;
+            body.angularVelocity = 0;
         }
     }
 }
