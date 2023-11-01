@@ -8,8 +8,8 @@ public class FOVSetting : MonoBehaviour
     public FOVSlider fovSlider; 
 
     // instances of FOV
-    protected float radius;
-    protected float angle;
+    private float radius;
+    private float angle;
 
     private float newX;
     private float newY;
