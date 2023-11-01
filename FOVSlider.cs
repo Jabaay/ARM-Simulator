@@ -16,13 +16,13 @@ public class FOVSlider : MonoBehaviour
     // Start is called before the first frame update
     void Update()
     {
-        // add listeners to both sliders to update the texts
+        // add listeners to both Sliders to update the texts
         _radiusSlider.onValueChanged.AddListener(OnSlider1ValueChanged);
         _angleSlider.onValueChanged.AddListener(OnSlider2ValueChanged);
     }
 
 
-    // Change the value of radius slider
+    // Change the value of radius Slider
     private void OnSlider1ValueChanged(float value)
     {
         // update the text of the radius slider
@@ -30,7 +30,7 @@ public class FOVSlider : MonoBehaviour
     }
 
 
-    // Change the value of angle slider
+    // Change the value of angle Slider
     private void OnSlider2ValueChanged(float value)
     {
         // update the text of the angle slider

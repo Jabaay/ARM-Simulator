@@ -20,6 +20,7 @@ public class FOVSetting : MonoBehaviour
     // Start is called before the first frame
     private void Start()
     {
+        // Get the PolygonCollider and LineRenderer components
         pc = GetComponent<PolygonCollider2D>();
         lr = GetComponent<LineRenderer>();
 
@@ -47,12 +48,9 @@ public class FOVSetting : MonoBehaviour
     }
 
 
-    // Configure collider's shape with points
+    // Configure PolygonCollider's shape with points
     private void setColliderPoints()
     {
-        // Get the PolygonCollider2D component attached to your GameObject
-        PolygonCollider2D polygonCollider = gameObject.GetComponent<PolygonCollider2D>();
-
         Vector2[] pathPoints = new Vector2[]
         {
             new Vector2(newX, newY), // first point
@@ -60,12 +58,12 @@ public class FOVSetting : MonoBehaviour
             new Vector2(0, 0), // third point, fixed
         };
 
-        // Update the path in the Polygon Collider
-        polygonCollider.SetPath(0, pathPoints);
+        // Update the path in the PolygonCollider
+        pc.SetPath(0, pathPoints);
     }
 
 
-    // Update line renderer to match with polygon collider
+    // Update LineRenderer to match with PolygonCollider
     private void updateLineRenderer()
     {
         if (lr)
@@ -80,7 +78,7 @@ public class FOVSetting : MonoBehaviour
                 linePositions[i] = new Vector3(worldPoint.x + 6.55f, worldPoint.y, 0f);
             }
 
-            // Set line renderer positions
+            // Set LineRenderer positions
             lr.positionCount = linePositions.Length;
             lr.SetPositions(linePositions);
         }
