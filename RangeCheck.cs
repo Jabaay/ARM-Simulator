@@ -4,37 +4,28 @@ using UnityEngine;
 
 public class RangeCheck : MonoBehaviour
 {
-
+    // instance
     public bool isInRange = false;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     
+    /*
+     * Check whether target stays in the collider.
+     */
     void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.CompareTag("Target"))
         {
             isInRange = true;
         }
-
     }
 
-
+    
+    /*
+     * Check whether target is outside of the collider.
+     */
     void OnTriggerExit2D(Collider2D collision)
     {
-
         isInRange = false;
     }
-
 
 }
