@@ -15,6 +15,7 @@ public class FOVSlider : MonoBehaviour
     protected float radius;
     protected float angle;
 
+
     // Start is called before the first frame update
     void Update()
     {
