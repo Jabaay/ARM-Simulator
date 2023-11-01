@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -9,6 +10,7 @@ public class Jammer : MonoBehaviour
 {
 
     [SerializeField] private bool active = true;
+    [SerializeField] private bool circular = true;
     [SerializeField] private float power = 2.0f; // The maximum output of the Jammer
     [SerializeField] private float scale = 2.0f; // The distribution pattern of the jammer
     [SerializeField] private float radius = 5.0f; // The maximum radius of the Jammer
@@ -59,11 +61,21 @@ public class Jammer : MonoBehaviour
     private List<KeyValuePair<float, Vector3>> fillList(
         List<KeyValuePair<float, Vector3>> data, Vector3 jammerPos)
     {
-        var minX = jammerPos.x - radius;
-        var maxX = jammerPos.x + radius;
+        float minX;
+        float maxX;
+        if (circular)
+        {
+            minX = jammerPos.x - radius;
+            maxX = jammerPos.x + radius;
+        }
+        else
+        {
+            minX = jammerPos.x - radius;
+            maxX = jammerPos.x + 0;
+        }
 
-        var minY = jammerPos.y - radius;
-        var maxY = jammerPos.y + radius;
+        float minY = jammerPos.y - radius;
+        float maxY = jammerPos.y + radius;
 
         for (var y = minY; y <= maxY; y += 1)
         {
@@ -78,11 +90,11 @@ public class Jammer : MonoBehaviour
                     // Cap the jamming value by the power
                     // F(x; s) = 1 - e^(-x^2 / (2 * s^2))
                     //  s = scale,  x = power? 1 = constant
-                    float u = UnityEngine.Random.value; // Get a uniform random number between 0 and 1
-                    float stepA = 2 * (scale * scale); // Should this be randomly generated?
-                    float stepB = (-u * -u) / stepA; // Should this be power?
-                    float jammingValue = (float)(1 - Math.Exp(stepB));
-
+                    double u = UnityEngine.Random.value; // Get a uniform random number between 0 and 1
+                    double stepA = 2.0 * Math.Pow(scale,2.0); // Should this be randomly generated?
+                    double stepB = Math.Pow(-u, 2.0) / stepA; // Should this be power?
+                    float jammingValue = (float)(power - Math.Exp(stepB));
+                    jammingValue = Math.Abs(jammingValue);
                     //jammingValue = Mathf.Clamp(jammingValue, 0, power);
 
                     // Store the jamming value and coordinates in the list
@@ -98,15 +110,19 @@ public class Jammer : MonoBehaviour
     {
         //Vector3 jammerPos = transform.position;
         var max = jammingData[0];
+        var min = jammingData[0];
 
         foreach (var decPair in jammingData)
         {
             if (decPair.Key > max.Key)
                 max = decPair;
+            else
+                min = decPair;
         }
 
         decoyCoord = max.Value;
-        Debug.Log(max.Key);
+        Debug.Log("\nMAX: " + max.Key + "\nPosition: " + max.Value + 
+            "\nMIN: " + min.Key + "\nPosition: " + min.Value);
     }
 
    private void drawDecoyCoord()
@@ -128,11 +144,17 @@ public class Jammer : MonoBehaviour
     // Meant to only work as a debug tool
     private void OnDrawGizmos()
     {
-        if (active)
+        if (active && circular)
         {
             Vector3 jammerPos = transform.position;
             Gizmos.color = Color.white;
             Gizmos.DrawWireSphere(jammerPos, radius);
+        }else if(active && !circular)
+        {
+            Vector3 jammerPos = transform.position;
+            Vector3 normal = new Vector3(0, 0, 1);
+            Vector3 from = new Vector3(0, 1, 0);
+            Handles.DrawWireArc(jammerPos, normal, from,180f,radius);
         }
     }
 }
