@@ -12,9 +12,6 @@ public class FOVSlider : MonoBehaviour
     [SerializeField] private Text _radiusSliderVal;
     [SerializeField] private Text _angleSliderVal;
 
-    protected float radius;
-    protected float angle;
-
 
     // Start is called before the first frame update
     void Update()
