@@ -36,9 +36,6 @@ public class FOVSetting : MonoBehaviour
             // Get the PolygonCollider2D component attached to your GameObject
             PolygonCollider2D polygonCollider = gameObject.GetComponent<PolygonCollider2D>();
 
-            // Define the points for the collider
-            int pathIndex = 0;
-
             Vector2[] pathPoints = new Vector2[]
             {
                 new Vector2(newX, newY), // first point
@@ -47,7 +44,7 @@ public class FOVSetting : MonoBehaviour
             };
 
             // Update the path in the Polygon Collider
-            polygonCollider.SetPath(pathIndex, pathPoints);
+            polygonCollider.SetPath(0, pathPoints);
         }
 
 }
