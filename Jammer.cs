@@ -20,7 +20,7 @@ public class Jammer : MonoBehaviour
 
     private void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -77,11 +77,11 @@ public class Jammer : MonoBehaviour
         float minY = jammerPos.y - radius;
         float maxY = jammerPos.y + radius;
 
-        for (var y = minY; y <= maxY; y += 1)
+        for (float y = minY; y <= maxY; y += 1)
         {
-            for (var x = minX; x <= maxX; x += 1)
+            for (float x = minX; x <= maxX; x += 1)
             {
-                Vector3 jammingCoord = new Vector3 (x, y, 0);
+                Vector3 jammingCoord = new Vector3(x, y, 0);
                 //float distance = Vector3.Distance(jamPos, new Vector3(x, y, 0));
 
                 if (Vector3.Distance(jammerPos, jammingCoord) >= radius)
@@ -91,7 +91,7 @@ public class Jammer : MonoBehaviour
                     // F(x; s) = 1 - e^(-x^2 / (2 * s^2))
                     //  s = scale,  x = power? 1 = constant
                     double u = UnityEngine.Random.value; // Get a uniform random number between 0 and 1
-                    double stepA = 2.0 * Math.Pow(scale,2.0); // Should this be randomly generated?
+                    double stepA = 2.0 * Math.Pow(scale, 2.0); // Should this be randomly generated?
                     double stepB = Math.Pow(-u, 2.0) / stepA; // Should this be power?
                     float jammingValue = (float)(power - Math.Exp(stepB));
                     jammingValue = Math.Abs(jammingValue);
@@ -110,22 +110,22 @@ public class Jammer : MonoBehaviour
     {
         //Vector3 jammerPos = transform.position;
         var max = jammingData[0];
-        var min = jammingData[0];
+        //var min = jammingData[0];
 
         foreach (var decPair in jammingData)
         {
             if (decPair.Key > max.Key)
                 max = decPair;
-            else
-                min = decPair;
+           // else
+           //     min = decPair;
         }
 
         decoyCoord = max.Value;
-        Debug.Log("\nMAX: " + max.Key + "\nPosition: " + max.Value + 
-            "\nMIN: " + min.Key + "\nPosition: " + min.Value);
+        //Debug.Log("\nMAX: " + max.Key + "\nPosition: " + max.Value +
+        //    "\nMIN: " + min.Key + "\nPosition: " + min.Value);
     }
 
-   private void drawDecoyCoord()
+    private void drawDecoyCoord()
     {
         GameObject.Find("Circle").transform.position = getDecoyCoord();
     }
@@ -149,12 +149,13 @@ public class Jammer : MonoBehaviour
             Vector3 jammerPos = transform.position;
             Gizmos.color = Color.white;
             Gizmos.DrawWireSphere(jammerPos, radius);
-        }else if(active && !circular)
+        }
+        else if (active && !circular)
         {
             Vector3 jammerPos = transform.position;
             Vector3 normal = new Vector3(0, 0, 1);
             Vector3 from = new Vector3(0, 1, 0);
-            Handles.DrawWireArc(jammerPos, normal, from,180f,radius);
+            Handles.DrawWireArc(jammerPos, normal, from, 180f, radius);
         }
     }
 }

@@ -8,6 +8,7 @@ public class Missile : MonoBehaviour
 
     private Rigidbody2D body;
     public Jammer jammer;
+    public RangeCheck rc;
 
     [SerializeField] private float speed = 14.5f; // traveling speed of the missile horizontal to its trajectory
     [SerializeField] private float boost = 5.0f; // boosting speed of the missile perpendicular to its trajectory
@@ -37,7 +38,7 @@ public class Missile : MonoBehaviour
 
         body.velocity = transform.right * speed;
         // The missile stop tracking if it passes target
-        if (body.position.x < targetPos.x)
+        if (body.position.x < targetPos.x && rc.isInRange)
         {
             float rotateAmount = Vector3.Cross(direction, transform.right).z;
             body.angularVelocity = -rotateAmount * boost;
