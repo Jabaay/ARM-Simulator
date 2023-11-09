@@ -19,7 +19,19 @@ public class Missile : MonoBehaviour
 
     void FixedUpdate()
     {
+<<<<<<< Updated upstream
         Vector2 targetPos = GameObject.Find("squareTarget").transform.position;
+=======
+        Vector2 targetPos;
+
+        if (jammer != null && jammer.getActive())
+        {
+            //Debug.Log("MISSILE: " + jammer.getDecoyCoord());
+            targetPos = jammer.getDecoyCoord();
+        }
+        else
+            targetPos = GameObject.Find("Target").transform.position;
+>>>>>>> Stashed changes
 
         Vector2 direction = targetPos - body.position;
         direction.Normalize();
