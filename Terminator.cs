@@ -7,5 +7,6 @@ public class Terminator : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+        Debug.Log("Quit the game!");
     }
 }

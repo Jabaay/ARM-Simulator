@@ -25,7 +25,6 @@ public class UIMaster : MonoBehaviour
     [SerializeField] private GameObject qbutton; // QuitButton
     [SerializeField] private GameObject rbutton; // ResetButton
 
-
     [SerializeField] private Text speedText;
     [SerializeField] private Text boostText;
     [SerializeField] private Text radiusText;
@@ -33,17 +32,11 @@ public class UIMaster : MonoBehaviour
     [SerializeField] private Text distance2TargetText;
     [SerializeField] private Text distance2JammerText;
 
-    private float speed;
-    private float boost;
-    private float radius;
-    private float angle;
-    private float distance2Target;
-    private float distance2Jammer;
 
     // Update is called once per frame
     void Update()
     {
-        // pause the game with the escape key
+        // Pause the game with the escape key
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Debug.Log("Escape key pressed");
@@ -77,15 +70,15 @@ public class UIMaster : MonoBehaviour
                 aslider.SetActive(false);
                 qbutton.SetActive(false);
                 rbutton.SetActive(false);
-                Time.timeScale = 1;
+                Time.timeScale = 1; // resume the game
             }
         }
 
-        // pass the values to the texts
+        // Pass the values to the texts
         speedText.text = "Speed: " + ss._speedSlider.value.ToString("F2");
         boostText.text = "Boost: " + ss._boostSlider.value.ToString("F2");
         radiusText.text = "Radius: " + fovs._radiusSlider.value.ToString("F2");
-        angleText.text = "Angle: " + fovs._angleSlider.value.ToString("F2") + "бу";
+        angleText.text = "Angle: " + fovs._angleSlider.value.ToString("F2") + "??";
         distance2TargetText.text = "Distance to Target: " + Vector3.Distance(GameObject.Find("Missile").transform.position, GameObject.Find("Target").transform.position).ToString("F2");
         distance2JammerText.text = "Distance to Jammer: " + Vector3.Distance(GameObject.Find("Missile").transform.position, GameObject.Find("Jammer").transform.position).ToString("F2");
 
