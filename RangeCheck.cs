@@ -13,7 +13,7 @@ public class RangeCheck : MonoBehaviour
      */
     void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.CompareTag("Target"))
+        if (collision.CompareTag("Target") || collision.CompareTag("Decoy"))
         {
             isInRange = true;
         }

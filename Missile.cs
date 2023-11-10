@@ -9,9 +9,10 @@ public class Missile : MonoBehaviour
     private Rigidbody2D body;
     public Jammer jammer;
     public RangeCheck rc;
+    public SpeedSlider ss;
 
-    [SerializeField] private float speed = 14.5f; // traveling speed of the missile horizontal to its trajectory
-    [SerializeField] private float boost = 5.0f; // boosting speed of the missile perpendicular to its trajectory
+    [SerializeField] private float speed; // traveling speed of the missile horizontal to its trajectory
+    [SerializeField] private float boost; // boosting speed of the missile perpendicular to its trajectory
     //[SerializeField] private float angle; // angle of initial motion
 
     void Start()
@@ -23,6 +24,12 @@ public class Missile : MonoBehaviour
 
     void FixedUpdate()
     {
+
+        // get speed and boost updated
+        speed = ss._speedSlider.value;
+        boost = ss._boostSlider.value;
+
+
         Vector2 targetPos;
 
         if (jammer != null && jammer.getActive())
@@ -31,7 +38,7 @@ public class Missile : MonoBehaviour
             targetPos = jammer.getDecoyCoord();
         }
         else
-            targetPos = GameObject.Find("squareTarget").transform.position;
+            targetPos = GameObject.Find("Target").transform.position;
 
         Vector2 direction = targetPos - body.position;
         direction.Normalize();
