@@ -17,16 +17,23 @@ public class SpeedSlider : MonoBehaviour
     void Update()
     {
         // add listeners to both Sliders to update the texts
-        _speedSlider.onValueChanged.AddListener(OnSliderValueChanged);
-        _boostSlider.onValueChanged.AddListener(OnSliderValueChanged);
+        _speedSlider.onValueChanged.AddListener(OnSliderValue1Changed);
+        _boostSlider.onValueChanged.AddListener(OnSliderValue2Changed);
     }
 
 
-    // Change the value of the Sliders
-    private void OnSliderValueChanged(float value)
+    // Change the value of the speed Slider
+    private void OnSliderValue1Changed(float value)
     {
         // update the text of the speed slider
         _speedSliderVal.text = value.ToString("0.00");
+    }
+
+
+    // Change the value of the boost Slider
+    private void OnSliderValue2Changed(float value)
+    {
+        // update the text of the boost slider
         _boostSliderVal.text = value.ToString("0.00");
     }
 

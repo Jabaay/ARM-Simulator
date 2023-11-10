@@ -17,16 +17,23 @@ public class FOVSlider : MonoBehaviour
     void Update()
     {
         // add listeners to both Sliders to update the texts
-        _radiusSlider.onValueChanged.AddListener(OnSliderValueChanged);
-        _angleSlider.onValueChanged.AddListener(OnSliderValueChanged);
+        _radiusSlider.onValueChanged.AddListener(OnSliderValue1Changed);
+        _angleSlider.onValueChanged.AddListener(OnSliderValue2Changed);
     }
 
 
-    // Change the value of the Sliders
-    private void OnSliderValueChanged(float value)
+    // Change the value of the radius Slider
+    private void OnSliderValue1Changed(float value)
     {
         // update the text of the radius slider
         _radiusSliderVal.text = value.ToString("0.00");
+    }
+
+    
+    // Change the value of the angle Slider
+    private void OnSliderValue2Changed(float value)
+    {
+        // update the text of the angle slider
         _angleSliderVal.text = value.ToString("0.00");
     }
 
