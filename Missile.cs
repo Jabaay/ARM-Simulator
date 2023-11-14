@@ -20,15 +20,16 @@ public class Missile : MonoBehaviour
         body = GetComponent<Rigidbody2D>();
 
         transform.position = new Vector3(0, 0, 0);
+
+        Debug.Log("Target Location: " + GameObject.Find("Target").transform.position);
+        Debug.Log("Jammer Location: " + GameObject.Find("Jammer").transform.position);
     }
 
     void FixedUpdate()
-    {
-
+    { 
         // get speed and boost updated
         speed = ss._speedSlider.value;
         boost = ss._boostSlider.value;
-
 
         Vector2 targetPos;
 

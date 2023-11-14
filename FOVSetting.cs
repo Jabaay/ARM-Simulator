@@ -60,7 +60,7 @@ public class FOVSetting : MonoBehaviour
 
         // Update the path in the PolygonCollider
         pc.SetPath(0, pathPoints);
-    }
+    }   
 
 
     // Update LineRenderer to match with PolygonCollider
@@ -75,7 +75,7 @@ public class FOVSetting : MonoBehaviour
             for (int i = 0; i < colliderPoints.Length; i++)
             {
                 Vector3 worldPoint = transform.TransformPoint(colliderPoints[i]);
-                linePositions[i] = new Vector3(worldPoint.x + 7.5f, worldPoint.y, 0f);
+                linePositions[i] = new Vector3(worldPoint.x, worldPoint.y, 0f);
             }
 
             // Set LineRenderer positions

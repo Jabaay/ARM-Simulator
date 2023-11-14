@@ -78,7 +78,7 @@ public class UIMaster : MonoBehaviour
         speedText.text = "Speed: " + ss._speedSlider.value.ToString("F2");
         boostText.text = "Boost: " + ss._boostSlider.value.ToString("F2");
         radiusText.text = "Radius: " + fovs._radiusSlider.value.ToString("F2");
-        angleText.text = "Angle: " + fovs._angleSlider.value.ToString("F2") + "??";
+        angleText.text = "Angle: " + fovs._angleSlider.value.ToString("F2") + "бу";
         distance2TargetText.text = "Distance to Target: " + Vector3.Distance(GameObject.Find("Missile").transform.position, GameObject.Find("Target").transform.position).ToString("F2");
         distance2JammerText.text = "Distance to Jammer: " + Vector3.Distance(GameObject.Find("Missile").transform.position, GameObject.Find("Jammer").transform.position).ToString("F2");
 

@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -155,7 +154,7 @@ public class Jammer : MonoBehaviour
             Vector3 jammerPos = transform.position;
             Vector3 normal = new Vector3(0, 0, 1);
             Vector3 from = new Vector3(0, 1, 0);
-            Handles.DrawWireArc(jammerPos, normal, from, 180f, radius);
+            // Handles.DrawWireArc(jammerPos, normal, from, 180f, radius); // for debug only
         }
     }
 }
