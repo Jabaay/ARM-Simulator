@@ -19,7 +19,8 @@ public class Jammer : MonoBehaviour
 
     private void Start()
     {
-
+        // Random Jammer spawn, jammerPos is the position of the green circle around it
+        GameObject.Find("Jammer").transform.position = new Vector3(UnityEngine.Random.Range(10f, 242.4f), UnityEngine.Random.Range(-80f, -10f), 0);
     }
 
     // Update is called once per frame
