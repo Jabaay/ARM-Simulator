@@ -18,7 +18,7 @@ public class Target : MonoBehaviour
         {
             new Vector3(Random.Range(20f, jammerPos.x - 15f), Random.Range(-72.6f, jammerPos.y - 15f), 0), // left side under the jammer
             new Vector3(Random.Range(jammerPos.x + 12f, 242.4f), Random.Range(-72.6f, jammerPos.y - 15f), 0), // right side under the jammer
-            new Vector3(Random.Range(20f, jammerPos.x - 8f), Random.Range(jammerPos.y + 15f, 0), 0), // left side above the jammer
+            new Vector3(Random.Range(20f, jammerPos.x - 15f), Random.Range(jammerPos.y + 15f, 0), 0), // left side above the jammer
             new Vector3(Random.Range(jammerPos.x + 15f, 242.4f), Random.Range(jammerPos.y + 15f, 0), 0) // right side above the jammer
         };
 
