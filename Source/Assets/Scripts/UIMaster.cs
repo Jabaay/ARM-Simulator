@@ -47,7 +47,6 @@ public class UIMaster : MonoBehaviour
     [SerializeField] private Text distance2TargetText;
     [SerializeField] private Text distance2JammerText;
 
-
     // Update is called once per frame
     void Update()
     {
@@ -117,7 +116,7 @@ public class UIMaster : MonoBehaviour
         radiusText.text = "Radius: " + fovs._radiusSlider.value.ToString("F2");
         angleText.text = "Angle: " + fovs._angleSlider.value.ToString("F2") + "бу";
 
-        statusText.text = "Status: " + ps.jmrsts;
+        statusText.text = "Jammer: " + ps.jmrsts;
         powerText.text = "Power: " + ps._powerSlider.value.ToString("F2") + " KW";
         distance2TargetText.text = "Distance to Target: " + Vector3.Distance(GameObject.Find("Missile").transform.position, GameObject.Find("Target").transform.position).ToString("F2");
         distance2JammerText.text = "Distance to Jammer: " + Vector3.Distance(GameObject.Find("Missile").transform.position, GameObject.Find("Jammer").transform.position).ToString("F2");
