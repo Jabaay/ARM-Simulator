@@ -5,3 +5,10 @@ This senior design project aims to simulate the Anti-Radiation Missile System AG
 Built with Unity 2022.1.14f in C#
 
 Originally known as "Project K".
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+TO OUR PREDECESSORS: 
+
+
+
