@@ -21,7 +21,7 @@ First, we'd like to congratulate you on picking up this wonderful project! Feel 
 ## Potential Ideas for you to consider:
 - Bringing the Simulator into the **3D** space (Unity 2D -> Unity 3D)
 - **HUD element** that tracks the missile's location (This should be pretty easy to implement)
-- Better **FOV** component (Right now, we're simply using a series of line segments to draw the triangle as the FOV; you could manipulate *Lighting* and *Post-Processing* to create the cone effect if you're more familiar with that)
+- Better **FOV** component (Right now, we're simply using a series of line segments to draw a triangle as the FOV; you could manipulate *Lighting* and *Post-Processing* to create the cone effect if you're more familiar with that)
 - **Terrain Randomizer** (Now this is a tricky one, as there are so many aspects that can go wrong, not to mention the tedious debugging and testing phase)
 
 Much respect,
