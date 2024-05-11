@@ -18,7 +18,7 @@ First, we'd like to congratulate you on picking up this wonderful project! Feel 
 - Functional **Missile** object that has an adjustable FOV cone which is used to detect the **Jammer** and **Target/Radar** (No it can't differentiate between those two, and you need to implement a function that distinguishes the signals sent by those two, perhaps with the application of **The Huygens–Fresnel Principle**, which you definitely want to look up if it doesn't sound familiar to you)
 - **User Interface** for adjusting parameters like **Missile Speed** (More parameters should be added depending on your implementations, but more options = super)
 
-## Potential Ideas that we couldn't complete on time:
+## Potential Ideas for you to consider:
 - Bringing the Simulator into the **3D** space (Unity 2D -> Unity 3D)
 - **HUD element** that tracks the missile's location (This should be pretty easy to implement)
 - Better **FOV** component (Right now, we're simply using a series of line segments to draw the triangle as the FOV; you could manipulate *Lighting* and *Post-Processing* to create the cone effect if you're more familiar with that)
